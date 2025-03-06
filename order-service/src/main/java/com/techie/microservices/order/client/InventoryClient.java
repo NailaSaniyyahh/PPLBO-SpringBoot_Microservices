@@ -18,9 +18,8 @@ public interface InventoryClient {
     @Retry(name = "inventory")
     boolean isInStock(@RequestParam String skuCode, @RequestParam Integer quantity);
 
-    default boolean fallbackMethod(String code, Integer quantity, Throwable throwable) {
-        log.info("Cannot get inventory for skucode {}, failure reason: {}", code, throwable.getMessage());
+    default boolean fallbackMethod(String skuCode, Integer quantity, Throwable throwable) {
+        log.info("Cannot get inventory for skucode {}, failure reason: {}", skuCode, throwable.getMessage());
         return false;
     }
 }
-
